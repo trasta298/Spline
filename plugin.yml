@@ -1,0 +1,17 @@
+name: EscapePE
+main: EscapePE\Main
+version: 1.0.0
+api: [1.0.0]
+author: trasta298
+commands:
+ test:
+  aliases: [test2, test3, test4, xyz, dev]
+  description: "テストコマンド"
+  usage: "/test"
+  permission: operator
+
+permissions:
+ operator:
+  default: op
+ guest:
+  default: true
