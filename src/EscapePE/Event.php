@@ -83,5 +83,28 @@ class Event implements Listener{
 		$this->main = $main;
 	}
 
+	public function onPlayerInteract(PlayerInteractEvent $event){
+		$hand_id = $event->getItem()->getID();
+		$player = $event->getPlayer();
+		$name = $player->getName();
+		$block = $event->getBlock();
+		$block_id = $block->getId();
+		//手持ちが本
+		if($hand_id == 340){
+			switch ($block_id) {
+				case 133://エメラルド
+					$this->main->onEntry($name);
+					break;
+
+				case 57://ダイヤモンド
+					$this->main->outEntry($name);
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+		}
+	}
 
 }
