@@ -2,6 +2,8 @@
 
 namespace EscapePE;
 
+use EscapePE\PlayerData;
+
 # Base
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
@@ -20,39 +22,34 @@ class Main extends PluginBase implements Listener{
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new TimeTable($this), 1);
 	}
 
+	//PlayerDataを取得する
+	public function getData($name){
+		return $this->data[$name];
+	}
+
 	//データをセーブする
-	public function dataSave($name){
+	public function dataSave($name, $isout = true){
 		if(isset($this->data[$name])){
-			$res = $this->data[$name]->dataSave();
+			$this->data[$name]->dataSave();
+			if($isout){
+				unset($this->data[$name]);
+			}
 		}else{
-			$data = json_encode($this->dataLoad($name));
-			$res = file_put_contents("SaveData/".$name.".json",$data);
-		}
-		if($res){
-			Server::getInstance()->getLogger()->info("\033[1;34m".$name."のデータセーブが完了しました"."\033[0m");
-		}else{
-			Server::getInstance()->getLogger()->info("\033[0;31m".$name."のデータセーブに失敗しました"."\033[0m");
+			//セーブするデータがない
 		}
 	}
 
 	//データをロードする
-	public function dataLoad($name){
-		if(file_exists("SaveData/".$name.".json")){
-			$res = file_get_contents("SaveData/".$name.".json");
-			Server::getInstance()->getLogger()->info("\033[1;34m".$name."のデータロードが完了しました"."\033[0m");
-			return json_decode($res);
-		}else{
-			Server::getInstance()->getLogger()->info("\033[1;36m".$name."のデータが見つからなかったので新しいデータを作成しました"."\033[0m");
-			return $this->getNewData();
+	public function dataLoad($name, $isin = true){
+		if(isset($this->data[$name])){
+			return $this->data[$name];
 		}
+		$pdata = new PlayerData($name, true);
+		if($isin){
+			$this->data[$name] = $pdata;
+		}
+		return $pdata;
     }
-    
-	public function getNewData(){
-		$data = [
-			"rank" => 1
-		];
-		return $data;
-	}
 
 	//エントリーリクエスト処理
 	public function onEntry($name){

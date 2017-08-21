@@ -83,6 +83,18 @@ class Event implements Listener{
 		$this->main = $main;
 	}
 
+	public function PlayerJoinEvent(PlayerJoinEvent $event){
+		$player = $event->getPlayer();
+		$name = $player->getName();
+		$this->main->dataLoad($name);
+	}
+
+	public function PlayerQuitEvent(PlayerQuitEvent $event){
+		$player = $event->getPlayer();
+		$name = $player->getName();
+		$this->main->dataSave($name);
+	}
+
 	public function onPlayerInteract(PlayerInteractEvent $event){
 		$hand_id = $event->getItem()->getID();
 		$player = $event->getPlayer();
@@ -90,20 +102,26 @@ class Event implements Listener{
 		$block = $event->getBlock();
 		$block_id = $block->getId();
 		//手持ちが本
-		if($hand_id == 340){
-			switch ($block_id) {
-				case 133://エメラルド
-					$this->main->onEntry($name);
-					break;
+		switch ($hand_id){
+			case 340://本
+				switch ($block_id) {
+					case 133://エメラルド
+						$this->main->onEntry($name);
+						break;
 
-				case 57://ダイヤモンド
-					$this->main->outEntry($name);
-					break;
-				
-				default:
-					# code...
-					break;
-			}
+					case 57://ダイヤモンド
+						$this->main->outEntry($name);
+						break;
+
+					default:
+						# code...
+						break;
+				}
+				break;
+
+			case 260://りんごdebug
+				$player->sendMessage($block->x." ".$block->y." ".$block->z." ".$block_id);
+				break;
 		}
 	}
 

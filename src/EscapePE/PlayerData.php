@@ -2,43 +2,62 @@
 
 namespace EscapePE;
 
+use pocketmine\Server;
+
 class PlayerData {
 
-    private final $VERSION = 1;
+    const VERSION = 1;
 
     public $name;
     public $rank;
 
-    function __construct(){
-        #code...
+    function __construct($name, $load){
+		$this->name = $name;
+        if($load){
+			$this->dataLoad();
+		}
     }
 
 	//データをセーブする
 	public function dataSave(){
 		$data = $this->encodeJSON();
-		$res = file_put_contents("SaveData/".$name.".json",$data);
+		$res = file_put_contents("SaveData/".$this->name.".json",$data);
 		if($res){
-			Server::getInstance()->getLogger()->info("\033[1;34m".$name."のデータセーブが完了しました"."\033[0m");
+			Server::getInstance()->getLogger()->info("\033[1;34m".$this->name."のデータセーブが完了しました"."\033[0m");
 		}else{
-			Server::getInstance()->getLogger()->info("\033[0;31m".$name."のデータセーブに失敗しました"."\033[0m");
+			Server::getInstance()->getLogger()->info("\033[0;31m".$this->name."のデータセーブに失敗しました"."\033[0m");
 		}
+		return $res;
 	}
 
 	//データをロードする
-	public function dataLoad($name){
-		if(file_exists("SaveData/".$name.".json")){
-			$res = file_get_contents("SaveData/".$name.".json");
-			Server::getInstance()->getLogger()->info("\033[1;34m".$name."のデータロードが完了しました"."\033[0m");
-			return json_decode($res);
+	public function dataLoad(){
+		if(file_exists("SaveData/".$this->name.".json")){
+			$res = file_get_contents("SaveData/".$this->name.".json");
+			$this->decodeJSON($res);
+			Server::getInstance()->getLogger()->info("\033[1;34m".$this->name."のデータロードが完了しました"."\033[0m");
 		}else{
-			Server::getInstance()->getLogger()->info("\033[1;36m".$name."のデータが見つからなかったので新しいデータを作成しました"."\033[0m");
-			return $this->getNewData();
+			Server::getInstance()->getLogger()->info("\033[1;36m".$this->name."のデータが見つからなかったので新しいデータを作成しました"."\033[0m");
+			$this->getNewData();
 		}
-    }
+	}
+
+	//初期データ取得
+	public function getNewData(){
+		$this->rank = 1;
+	}
+	
+	public function decodeJSON($str){
+		$data = json_decode($str);
+		if($data["version"] != self::VERSION){//データのバージョンが古かったら
+			#code...
+		}
+		$this->rank = $data["rank"];
+	}
     
     public function encodeJSON(){
         $data = [
-            "version" => $this->VERSION,
+            "version" => self::VERSION,
             "rank" => $this->rank
         ];
         return json_encode($data);
