@@ -6,7 +6,10 @@ use pocketmine\Server;
 
 class PlayerData {
 
-    const VERSION = 1;
+	const VERSION = 1;
+	/*
+	* 新しいデータを追加したいときはVERSIONの数字を上げたうえで getNewData,encodeJSON,decodeJSON に追加する
+	*/
 
     public $name;
     public $rank;
@@ -42,25 +45,32 @@ class PlayerData {
 		}
 	}
 
-	//初期データ取得
+	/**
+	*初期データ取得
+	*/
 	public function getNewData(){
 		$this->rank = 1;
 	}
 	
-	public function decodeJSON($str){
-		$data = json_decode($str);
-		if($data["version"] != self::VERSION){//データのバージョンが古かったら
-			#code...
-		}
-		$this->rank = $data["rank"];
-	}
-    
     public function encodeJSON(){
         $data = [
             "version" => self::VERSION,
             "rank" => $this->rank
         ];
         return json_encode($data);
-    }
+	}
+	
+	public function decodeJSON($str){
+		$data = json_decode($str);
+		if($data["version"] != self::VERSION){//データのバージョンが古かったら
+			switch ($data["version"]) {
+				case 1:
+				$data["rank"] = 1;
+				
+			}
+		}
+		$this->rank = $data["rank"];
+	}
+    
 
 }

@@ -3,6 +3,7 @@
 namespace SplinePE;
 
 use SplinePE\PlayerData;
+use SplinePE\Entry;
 
 # Base
 use pocketmine\plugin\PluginBase;
@@ -21,14 +22,19 @@ class Main extends PluginBase implements Listener{
 	public function onEnable(){
 		$this->getServer()->getPluginManager()->registerEvents(new Event($this), $this);
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new TimeTable($this), 1);
+		$this->entry = new Entry($this);
 	}
 
-	//PlayerDataを取得する
+	/**
+	*PlayerDataを取得する
+	*/
 	public function getData($name){
 		return $this->data[$name];
 	}
 
-	//データをセーブする
+	/**
+	*データをセーブする
+	*/
 	public function dataSave($name, $isout = true){
 		if(isset($this->data[$name])){
 			$this->data[$name]->dataSave();
@@ -40,7 +46,9 @@ class Main extends PluginBase implements Listener{
 		}
 	}
 
-	//データをロードする
+	/**
+	*データをロードする
+	*/
 	public function dataLoad($name, $isin = true){
 		if(isset($this->data[$name])){
 			return $this->data[$name];
@@ -52,17 +60,9 @@ class Main extends PluginBase implements Listener{
 		return $pdata;
 	}
 
-	//エントリーリクエスト処理
-	public function onEntry($name){
-		#code...
-	}
-
-	//エントリーキャンセル処理
-	public function outEntry($name){
-		#code...
-	}
-
-	//タイムテーブル
+	/**
+	*タイムテーブル
+	*/
 	public function timeTable(){
 		#code...
 	}

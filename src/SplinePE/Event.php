@@ -106,11 +106,11 @@ class Event implements Listener{
 			case 340://本
 				switch ($block_id) {
 					case 133://エメラルド
-						$this->main->onEntry($name);
+						$this->main->entry->addEntry($name);
 						break;
 
 					case 57://ダイヤモンド
-						$this->main->outEntry($name);
+						$this->main->entry->removeEntry($name);
 						break;
 
 					default:
