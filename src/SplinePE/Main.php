@@ -1,8 +1,8 @@
 <?php
 
-namespace SplatoonPE;
+namespace SplinePE;
 
-use SplatoonPE\PlayerData;
+use SplinePE\PlayerData;
 
 # Base
 use pocketmine\plugin\PluginBase;

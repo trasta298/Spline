@@ -1,5 +1,5 @@
-name: SplatoonPE
-main: SplatoonPE\Main
+name: SplinePE
+main: SplinePE\Main
 version: 1.0.0
 api: [1.0.0]
 author: trasta298
