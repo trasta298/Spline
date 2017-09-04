@@ -1,5 +1,5 @@
-name: EscapePE
-main: EscapePE\Main
+name: SplatoonPE
+main: SplatoonPE\Main
 version: 1.0.0
 api: [1.0.0]
 author: trasta298

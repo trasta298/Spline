@@ -1,6 +1,6 @@
 <?php
 
-namespace EscapePE;
+namespace SplatoonPE;
 
 use pocketmine\Player;
 use pocketmine\Server;

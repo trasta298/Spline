@@ -1,8 +1,8 @@
 <?php
 
-namespace EscapePE;
+namespace SplatoonPE;
 
-use EscapePE\PlayerData;
+use SplatoonPE\PlayerData;
 
 # Base
 use pocketmine\plugin\PluginBase;
@@ -16,6 +16,7 @@ use pocketmine\scheduler\PluginTask;
 class Main extends PluginBase implements Listener{
 
 	private $data = [];
+	private $entry = [];
 
 	public function onEnable(){
 		$this->getServer()->getPluginManager()->registerEvents(new Event($this), $this);
@@ -49,7 +50,7 @@ class Main extends PluginBase implements Listener{
 			$this->data[$name] = $pdata;
 		}
 		return $pdata;
-    }
+	}
 
 	//エントリーリクエスト処理
 	public function onEntry($name){
