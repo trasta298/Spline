@@ -4,6 +4,7 @@ namespace SplinePE;
 
 use SplinePE\PlayerData;
 use SplinePE\Entry;
+use SplinePE\Game\Nawabari;
 
 # Base
 use pocketmine\plugin\PluginBase;
@@ -21,8 +22,8 @@ class Main extends PluginBase implements Listener{
 
 	public function onEnable(){
 		$this->getServer()->getPluginManager()->registerEvents(new Event($this), $this);
-		$this->getServer()->getScheduler()->scheduleRepeatingTask(new TimeTable($this), 1);
 		$this->entry = new Entry($this);
+		$this->game = new Nawabari($this);
 	}
 
 	/**
@@ -60,18 +61,4 @@ class Main extends PluginBase implements Listener{
 		return $pdata;
 	}
 
-	/**
-	*タイムテーブル
-	*/
-	public function timeTable(){
-		#code...
-	}
-
-}
-
-class TimeTable extends PluginTask{
-	public function onRun($tick){
-		//1tick毎
-		$this->getOwner()->timeTable();
-	}
 }

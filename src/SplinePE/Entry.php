@@ -85,17 +85,17 @@ class Entry {
 		}
 		if($this->isPreEntry($user)){
 			return "エントリー済みじゃなイカ シャッフル中…";
-        }
-        // ゲーム中にエントリー 後で書く 2017/9/4
-        /*
+		}
+		// ゲーム中にエントリー 後で書く 2017/9/4
+		/*
 		if($this->main->game == 17 || $this->main->game == 1){
 			$this->preentrylist[] = $user;
 			if($run_isReady){
 				$this->isReady();
 			}
 			return "エントリー完了！ シャッフル中…";
-        }
-        */
+		}
+		*/
 		$this->entrylist[] = $user;
 		if($run_isReady){
 			$this->isReady();
@@ -129,11 +129,11 @@ class Entry {
 	 * 試合メンバー選出
 	 */
 	public function choiceBattleMember(){
-        //エントリー人数が足りない時
+		//エントリー人数が足りない時
 		if(count($this->entrylist) < 2){
 			return false;
-        }
-        #code...
+		}
+		#code...
 	}
 
 	/**
@@ -142,6 +142,6 @@ class Entry {
 	 * @param $many
 	 */
 	public function getMatching($members, $many){
-        #code...
+		#code...
 	}
 }

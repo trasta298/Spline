@@ -11,17 +11,19 @@ class PlayerData {
 	* 新しいデータを追加したいときはVERSIONの数字を上げたうえで getNewData,encodeJSON,decodeJSON に追加する
 	*/
 
-    public $name;
-    public $rank;
+	public $name;
+	public $rank;
 
-    function __construct($name, $load){
+	function __construct($name, $load){
 		$this->name = $name;
-        if($load){
+		if($load){
 			$this->dataLoad();
 		}
-    }
+	}
 
-	//データをセーブする
+	/**
+	*データをセーブする
+	*/
 	public function dataSave(){
 		$data = $this->encodeJSON();
 		$res = file_put_contents("SaveData/".$this->name.".json",$data);
@@ -33,7 +35,9 @@ class PlayerData {
 		return $res;
 	}
 
-	//データをロードする
+	/**
+	*データをロードする
+	*/
 	public function dataLoad(){
 		if(file_exists("SaveData/".$this->name.".json")){
 			$res = file_get_contents("SaveData/".$this->name.".json");
@@ -52,12 +56,12 @@ class PlayerData {
 		$this->rank = 1;
 	}
 	
-    public function encodeJSON(){
-        $data = [
-            "version" => self::VERSION,
-            "rank" => $this->rank
-        ];
-        return json_encode($data);
+	public function encodeJSON(){
+		$data = [
+			"version" => self::VERSION,
+			"rank" => $this->rank
+		];
+		return json_encode($data);
 	}
 	
 	public function decodeJSON($str){
@@ -71,6 +75,6 @@ class PlayerData {
 		}
 		$this->rank = $data["rank"];
 	}
-    
+	
 
 }
