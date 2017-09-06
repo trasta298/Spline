@@ -1,6 +1,6 @@
 <?php
 
-namespace SplinePE;
+namespace SplinePE\Game;
 
 class Garea {
     

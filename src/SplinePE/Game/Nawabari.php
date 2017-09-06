@@ -1,10 +1,11 @@
 <?php
 
-namespace SplinePE;
+namespace SplinePE\Game;
 
 use pocketmine\event\Listener;
 use pocketmine\Player;
 use pocketmine\Server;
+use pocketmine\plugin\PluginBase;
 
 use pocketmine\scheduler\PluginTask;
 
@@ -14,7 +15,7 @@ class Nawabari {
     
 	function __construct($main){
 		$this->main = $main;
-		$this->getServer()->getScheduler()->scheduleRepeatingTask(new TimeTable($this), 1);
+		$main->getServer()->getScheduler()->scheduleRepeatingTask(new TimeTable($main), 1);
 		$stage = 0;
 	}
 
@@ -35,6 +36,6 @@ class Nawabari {
 class TimeTable extends PluginTask{
 	public function onRun($tick){
 		//1tick毎
-		$this->getOwner()->timeTable();
+		$this->getOwner()->game->timeTable();
 	}
 }
