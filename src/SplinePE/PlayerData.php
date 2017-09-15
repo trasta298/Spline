@@ -65,11 +65,11 @@ class PlayerData {
 	}
 	
 	public function decodeJSON($str){
-		$data = json_decode($str);
+		$data = json_decode($str, true);
 		if($data["version"] != self::VERSION){//データのバージョンが古かったら
 			switch ($data["version"]) {
 				case 1:
-				$data["rank"] = 1;
+					$data["rank"] = 1;
 				
 			}
 		}
