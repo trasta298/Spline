@@ -18,7 +18,6 @@ use pocketmine\scheduler\PluginTask;
 class Main extends PluginBase implements Listener{
 
 	private $data = [];
-	private $entry = [];
 
 	public function onEnable(){
 		$this->getServer()->getPluginManager()->registerEvents(new Event($this), $this);

@@ -50,16 +50,6 @@ class Entry {
 		return count($this->entrylist)+count($this->preentrylist);
 	}
 
-	public function isReady(){
-		if(($this->main->game == 1 || $this->main->error) && !$this->main->gamestop){
-			$next = $this->main->game + 1;
-			if(!isset($this->main->Task['game'][$next]) and $this->getEntryNum() > 1){
-				$sec = ($this->getEntryNum() > 3) ? 5 : 15;
-				$this->main->Task['game'][$next] = $this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main), 20 * $sec);
-			}
-		}
-	}
-
 	/**
 	 *エントリーの順番確定
 	 */
