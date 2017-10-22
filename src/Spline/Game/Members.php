@@ -4,9 +4,11 @@ namespace Spline\Game;
 
 class Members {
 
+	const RED = 0;
+	const BLUE = 1;
+	const GREEN = 2;
+
 	private $ongame = [
-		"alive" => [],
-		"dead" => []
 	];
 	
 	function __construct(){

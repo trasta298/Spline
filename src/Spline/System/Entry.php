@@ -68,11 +68,11 @@ class Entry {
 	 */
 	public function choiceBattleMember(){
 		//エントリー人数が足りない時
-		if($this->getEntryNum() < 4){
+		if($this->getEntryNum() < 3){
 			return false;
 		}
-		//一試合上限は12人
-		$num = ($this->getEntryNum() > 12) ? 12 : $this->getEntryNum();
+		//一試合上限は36人
+		$num = ($this->getEntryNum() > 36) ? 36 : $this->getEntryNum();
 		return array_splice($this->entrylist, 0, $num);
 	}
 

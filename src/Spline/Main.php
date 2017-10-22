@@ -4,7 +4,7 @@ namespace Spline;
 
 use Spline\PlayerData;
 use Spline\System\Entry;
-use Spline\Game\Solo;
+use Spline\Game\Game;
 use Spline\Event\Event;
 
 # Base
@@ -23,7 +23,7 @@ class Main extends PluginBase implements Listener{
 	public function onEnable(){
 		$this->getServer()->getPluginManager()->registerEvents(new Event($this), $this);
 		$this->entry = new Entry($this);
-		$this->game = new Solo($this);
+		$this->game = new Game($this);
 	}
 
 	/**

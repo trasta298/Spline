@@ -14,7 +14,7 @@ use Spline\System\Chat;
 use Spline\Game\Field;
 use Spline\Game\Members;
 
-class Solo {
+class Game {
 
 	private $stage = 0;
     
