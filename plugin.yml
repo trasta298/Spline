@@ -1,8 +1,8 @@
-name: SplinePE
-main: SplinePE\Main
+name: Spline
+main: Spline\Main
 version: 1.0.0
 api: [1.0.0]
-author: trasta298
+author: trasta
 commands:
  test:
   aliases: [test2, test3, test4, xyz, dev]

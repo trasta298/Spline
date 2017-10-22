@@ -1,6 +1,6 @@
 <?php
 
-namespace SplinePE;
+namespace Spline\Event;
 
 use pocketmine\Player;
 use pocketmine\Server;
@@ -77,6 +77,8 @@ use pocketmine\nbt\tag\ByteTag;
 
 use pocketmine\utils\MainLogger;
 
+use Spline\System\Chat;
+
 class Event implements Listener{
 
 	function __construct($main){
@@ -106,11 +108,13 @@ class Event implements Listener{
 			case 340://本
 				switch ($block_id) {
 					case 133://エメラルド
-						$this->main->entry->addEntry($name);
+						$out = $this->main->entry->addEntry($name);
+						$player->sendMessage(Chat::System($out));
 						break;
 
 					case 57://ダイヤモンド
-						$this->main->entry->removeEntry($name);
+						$out = $this->main->entry->removeEntry($name);
+						$player->sendMessage(Chat::System($out));
 						break;
 
 					default:
@@ -120,7 +124,7 @@ class Event implements Listener{
 				break;
 
 			case 260://りんごdebug
-				$player->sendMessage($block->x." ".$block->y." ".$block->z." ".$block_id);
+				$player->sendMessage(Chat::Debug($block->x." ".$block->y." ".$block->z." ".$block_id));
 				break;
 		}
 	}

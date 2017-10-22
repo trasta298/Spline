@@ -1,6 +1,6 @@
 <?php
 
-namespace SplinePE;
+namespace Spline;
 
 use pocketmine\Server;
 

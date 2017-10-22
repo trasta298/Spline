@@ -1,10 +1,11 @@
 <?php
 
-namespace SplinePE;
+namespace Spline;
 
-use SplinePE\PlayerData;
-use SplinePE\Entry;
-use SplinePE\Game\Nawabari;
+use Spline\PlayerData;
+use Spline\System\Entry;
+use Spline\Game\Solo;
+use Spline\Event\Event;
 
 # Base
 use pocketmine\plugin\PluginBase;
@@ -22,7 +23,7 @@ class Main extends PluginBase implements Listener{
 	public function onEnable(){
 		$this->getServer()->getPluginManager()->registerEvents(new Event($this), $this);
 		$this->entry = new Entry($this);
-		$this->game = new Nawabari($this);
+		$this->game = new Solo($this);
 	}
 
 	/**
