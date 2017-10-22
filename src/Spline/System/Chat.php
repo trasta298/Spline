@@ -11,7 +11,7 @@ class Chat {
 	}
 
 	public static function Debug($arg){
-		$str = "$f[Debug] $7";
+		$str = "§f[Debug] §7";
 		$str .= $arg;
 		return $str;
 	}

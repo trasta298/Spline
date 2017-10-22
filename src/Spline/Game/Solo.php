@@ -8,21 +8,21 @@ use pocketmine\Server;
 use pocketmine\plugin\PluginBase;
 
 use pocketmine\scheduler\PluginTask;
+use pocketmine\utils\MainLogger;
 
 use Spline\System\Chat;
+use Spline\Game\Field;
+use Spline\Game\Members;
 
 class Solo {
 
 	private $stage = 0;
-	private $ongame = [
-		"alive" => [],
-		"dead" => []
-	];
     
 	function __construct($main){
 		$this->main = $main;
 		$stage = 0;
 		$this->timeTable();
+		$this->m = new Members();
 	}
 
 	public function getStage(){
@@ -35,16 +35,19 @@ class Solo {
 	public function timeTable(){
 		$next = true;
 		switch($this->stage){
-			case 0: //メンバー決定
+			case 0: //フィールド作成
+					$this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main), 200);
+				break;
+			case 1: //メンバー決定
 				$res = $this->main->entry->choiceBattleMember();
 				if($res){
-					$this->ongame["alive"] = $res;
+					$this->m->newMember($res);
 					$this->main->getServer()->broadcastMessage(Chat::System("メンバーがそろいました"));
 					$this->main->getServer()->broadcastMessage(Chat::System("試合を開始します"));
 					$this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main), 100);
 				}else{//人数が足りない
 					$this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main), 100);
-					$this->main->getServer()->broadcastMessage(Chat::Debug("メンバーがそろいませんでした"));
+					MainLogger::getLogger()->debug(Chat::Debug("メンバーがそろいませんでした"));
 					$next = false;
 				}
 				break;

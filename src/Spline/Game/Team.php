@@ -2,7 +2,7 @@
 
 namespace Spline\Game;
 
-class Garea {
+class Team {
     
 	function __construct($main){
 		$this->main = $main;
