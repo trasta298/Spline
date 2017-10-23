@@ -9,6 +9,9 @@ class Members {
 	const GREEN = 2;
 
 	private $ongame = [
+		self::RED =>[],
+		self::BLUE => [],
+		self::GREEN => []
 	];
 	
 	function __construct(){
@@ -17,8 +20,9 @@ class Members {
 
 	public function resetMember(){
 		$this->ongame = [
-			"alive" => [],
-			"dead" => []
+			self::RED =>[],
+			self::BLUE => [],
+			self::GREEN => []
 		];
 	}
 

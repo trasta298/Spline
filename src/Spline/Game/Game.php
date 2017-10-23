@@ -29,6 +29,11 @@ class Game {
 		return $this->stage;
 	}
 
+	// 関数を遅らせて実行する
+	public function delayFunc($str, $tick){
+		$this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main, $str), 100);
+	}
+
 	/**
 	*タイムテーブル
 	*/
@@ -36,23 +41,23 @@ class Game {
 		$next = true;
 		switch($this->stage){
 			case 0: //フィールド作成
-					$this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main), 200);
+					$this->delayFunc("timeTable", 200);
 				break;
 			case 1: //メンバー決定
 				$res = $this->main->entry->choiceBattleMember();
 				if($res){
+					$this->main->getServer()->broadcastMessage(Chat::System("プレイヤーがそろいました"));
 					$this->m->newMember($res);
-					$this->main->getServer()->broadcastMessage(Chat::System("メンバーがそろいました"));
-					$this->main->getServer()->broadcastMessage(Chat::System("試合を開始します"));
-					$this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main), 100);
+					$this->delayFunc("timeTable", 100);
 				}else{//人数が足りない
-					$this->main->getServer()->getScheduler()->scheduleDelayedTask(new TimeScheduler($this->main), 100);
-					MainLogger::getLogger()->debug(Chat::Debug("メンバーがそろいませんでした"));
+					$this->delayFunc("timeTable", 100);
+					MainLogger::getLogger()->info(Chat::Debug("プレイヤーが足りません"));
 					$next = false;
 				}
 				break;
 
 			case 2: //試合開始
+				$this->main->getServer()->broadcastMessage(Chat::System("試合を開始します"));
 				break;
 
 			default:
@@ -66,12 +71,16 @@ class Game {
 }
 
 class TimeScheduler extends PluginTask{
-	
-	public function __construct(PluginBase $owner){
+
+	private $func;
+
+	public function __construct(PluginBase $owner, $str = "timeTable"){
 		parent::__construct($owner);
+		$this->func = $str;
 	}
 
 	public function onRun($tick){
-		$this->getOwner()->game->timeTable();
+		$f = array($this->getOwner()->game, $this->func);
+		$f();
 	}
 }
