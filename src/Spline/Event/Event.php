@@ -78,6 +78,7 @@ use pocketmine\nbt\tag\ByteTag;
 use pocketmine\utils\MainLogger;
 
 use Spline\System\Chat;
+use Spline\Game\Field;
 
 class Event implements Listener{
 
@@ -107,12 +108,12 @@ class Event implements Listener{
 		switch ($hand_id){
 			case 340://本
 				switch ($block_id) {
-					case 133://エメラルド
+					case 133: //エメラルド
 						$out = $this->main->entry->addEntry($name);
 						$player->sendMessage(Chat::System($out));
 						break;
 
-					case 57://ダイヤモンド
+					case 57: //ダイヤモンド
 						$out = $this->main->entry->removeEntry($name);
 						$player->sendMessage(Chat::System($out));
 						break;
@@ -123,8 +124,12 @@ class Event implements Listener{
 				}
 				break;
 
-			case 260://りんごdebug
+			case 260: //りんごdebug
 				$player->sendMessage(Chat::Debug($block->x." ".$block->y." ".$block->z." ".$block_id));
+				break;
+
+			case 280: //棒
+				Field::geneLaputa([$block->x, $block->y, $block->z], 20);
 				break;
 		}
 	}

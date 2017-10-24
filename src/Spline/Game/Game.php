@@ -38,10 +38,12 @@ class Game {
 	*タイムテーブル
 	*/
 	public function timeTable(){
-		$next = true;
+		$next = true;//
 		switch($this->stage){
-			case 0: //フィールド作成
+			case 0: //フィールド初期化
 					$this->delayFunc("timeTable", 200);
+					Field::remove();
+					Field::generate();
 				break;
 			case 1: //メンバー決定
 				$res = $this->main->entry->choiceBattleMember();
@@ -50,9 +52,9 @@ class Game {
 					$this->m->newMember($res);
 					$this->delayFunc("timeTable", 100);
 				}else{//人数が足りない
-					$this->delayFunc("timeTable", 100);
-					MainLogger::getLogger()->info(Chat::Debug("プレイヤーが足りません"));
+					MainLogger::getLogger()->debug(Chat::Debug("プレイヤーが足りません"));
 					$next = false;
+					$this->delayFunc("timeTable", 100);
 				}
 				break;
 
@@ -69,6 +71,7 @@ class Game {
 	}
 
 }
+
 
 class TimeScheduler extends PluginTask{
 
