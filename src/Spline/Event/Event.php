@@ -104,6 +104,9 @@ class Event implements Listener{
 		$name = $player->getName();
 		$block = $event->getBlock();
 		$block_id = $block->getId();
+		if($block->y == 0){
+			return false;
+		}
 		//手持ちが本
 		switch ($hand_id){
 			case 340://本
@@ -129,7 +132,15 @@ class Event implements Listener{
 				break;
 
 			case 280: //棒
-				Field::geneLaputa([$block->x, $block->y, $block->z], 20);
+				Field::geneLaputa([$block->x, $block->y+15, $block->z], 10);
+				break;
+
+			case 281: //棒
+				Field::geneLaputa([$block->x, $block->y+25, $block->z], 20);
+				break;
+
+			case 283: //棒
+				Field::geneLaputa([$block->x, $block->y+35, $block->z], 30);
 				break;
 		}
 	}
