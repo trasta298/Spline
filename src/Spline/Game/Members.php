@@ -28,6 +28,9 @@ class Members {
 
 	public function newMember($mem){
 		$this->resetMember();
-		# code...
+		shuffle($mem);
+		$this->ongame[self::RED] = array_splice($mem, 0, floor(count($mem)/3));
+		$this->ongame[self::BLUE] = array_splice($mem, 0, floor(count($mem)/2));
+		$this->ongame[self::GREEN] = $mem;
 	}
 }

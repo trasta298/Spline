@@ -38,7 +38,6 @@ class Entry {
 	 * エントリー追加
 	 */
 	public function addEntry($user){
-		$playerData = Account::getInstance()->getData($user);
 		if($this->isEntry($user)){
 			return $this->getEntry($user)."番目にエントリーなう";
 		}

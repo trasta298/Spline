@@ -16,7 +16,9 @@ use Spline\Game\Members;
 
 class Game {
 
+	const CENTER_POS = [700,50,800];
 	private $stage = 0;
+	private $laputas = [];
     
 	function __construct($main){
 		$this->main = $main;
@@ -42,8 +44,9 @@ class Game {
 		switch($this->stage){
 			case 0: //フィールド初期化
 					$this->delayFunc("timeTable", 200);
-					Field::remove();
-					Field::generate();
+					//Field::remove();
+					$this->laputas = [];
+					$this->laputas = Field::generate(self::CENTER_POS);
 				break;
 			case 1: //メンバー決定
 				$res = $this->main->entry->choiceBattleMember();

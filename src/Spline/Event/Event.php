@@ -132,15 +132,17 @@ class Event implements Listener{
 				break;
 
 			case 280: //棒
-				Field::geneLaputa([$block->x, $block->y+15, $block->z], 10);
+				$this->main->entry->addEntry("trasta334");
+				$this->main->entry->addEntry("trasta333");
+				$player->sendMessage(Chat::Debug("とらにゃん集団エントリー"));
 				break;
 
-			case 281: //棒
+			case 281: //ボウル
 				Field::geneLaputa([$block->x, $block->y+25, $block->z], 20);
 				break;
 
-			case 283: //棒
-				Field::geneLaputa([$block->x, $block->y+35, $block->z], 30);
+			case 283: //金剣
+				Field::generate([$block->x, $block->y+35, $block->z]);
 				break;
 		}
 	}

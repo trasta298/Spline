@@ -30,7 +30,7 @@ class Matrix {
 	* @return array [行数,列数]
 	*/
 	public static function countSize(array $a){
-		return [$this->countRow($a), $this->countCol($a)];
+		return [self::countRow($a), self::countCol($a)];
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Matrix {
 	* @return 行列1 + 行列2
 	*/
 	public static function add(array $a, array $b){
-		if($this->countSize($a) !== $this->countSize($b)){
+		if(self::countSize($a) !== self::countSize($b)){
 			throw new Exception('Different Matrix size.');
 		}
 		foreach($a as $x=>$v){
@@ -58,7 +58,7 @@ class Matrix {
 	* @return 行列1 - 行列2
 	*/
 	public static function sub(array $a, array $b){
-		if($this->countSize($a) !== $this->countSize($b)){
+		if(self::countSize($a) !== self::countSize($b)){
 			throw new Exception('Different Matrix size.');
 		}
 		foreach($a as $x=>$v){
@@ -76,18 +76,18 @@ class Matrix {
 	* @return 行列1 * 行列2
 	*/
 	public static function multiply(array $a, array $b){
-		$c = $this->countCol($a);
-		if($c !== $this->countRow($b)){
+		$c = self::countCol($a);
+		if($c !== self::countRow($b)){
 			throw new Exception('Invalid Matrix size.');
 		}
-		$r = $this->countRow($a);
+		$r = self::countRow($b);
 
 		$ret = [];
 		for($i=0;$i<$r;$i++){
 			for($j=0;$j<$r;$j++){
 				$ret[$i][$j] = 0;
 				for($k=0;$k<$c;$k++){
-					$ret[$i][$j] += $a[$i][$k] * $b[$k][$j];
+					$ret[$i][$j] += floor($a[$i][$k] * $b[$k][$j]);
 				}
 			}
 		}
@@ -114,5 +114,13 @@ class Matrix {
 	*/
 	public static function transpose(array $a){
 		return call_user_func_array('array_map', array_merge([null], $a));
+	}
+
+	public static function abc(array $a){
+		return [[$a[0]], [$a[1]], [$a[2]]];
+	}
+
+	public static function cba(array $a){
+		return [$a[0][0], $a[1][0], $a[2][0]];
 	}
 }

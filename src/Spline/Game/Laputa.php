@@ -27,10 +27,8 @@ class Laputa {
 
 
 	public function placeObject($level, $pos){
-		echo "start\n";
 		$this->map = [];
 		$this->createMap($pos[0], $pos[2], $this->size);
-		echo "map create!\n";
 		foreach ($this->map as $key => $value) {
 			for ($y=$pos[1]-$value[2]; $y<$pos[1]; $y++){
 				if($y < 0) continue;
@@ -38,7 +36,6 @@ class Laputa {
 				$level->setBlockDataAt($value[0], $y+1, $value[1], $this->data);
 			}
 		}
-		echo "end\n";
 	}
 
 	// x, z, y
