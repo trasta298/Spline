@@ -6,21 +6,23 @@ use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\level\Level;
 
-use Spline\System\Matrix;
 use Spline\Game\Laputa;
 
 
 class Field{
 
-	private $laputas = [];
+	const WORLD = "field";
 
 	//フィールド削除
 	public static function remove(){
-		# code...
+		$level = Server::getInstance()->getLevelByName(self::WORLD);
+		Server::getInstance()->unloadLevel($level);
+		Server::getInstance()->loadLevel(self::WORLD);
+		$level->setAutoSave(false);
 	}
 
 	//フィールド生成
-	public static function generate($center){
+	public static function form($center){
 		$laputas = [];
 		$laputas[3] = self::geneLaputa($center, 25);
 		$dis_base = [70,-5]; //各チーム拠点までの距離行列 xz,y
@@ -35,9 +37,9 @@ class Field{
 
 	//浮島生成
 	public static function geneLaputa($pos, $size){
-		$level = Server::getInstance()->getDefaultLevel();
-		$laputa = new Laputa(1, 0, $size);
-		$laputa->placeObject($level, $pos);
+		$level = Server::getInstance()->getLevelByName(self::WORLD);
+		$laputa = new Laputa(1, 0, $size, $pos, $level);
+		$laputa->placeObject();
 		return $laputa;
 	}
 

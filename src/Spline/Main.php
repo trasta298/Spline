@@ -6,6 +6,7 @@ use Spline\PlayerData;
 use Spline\System\Entry;
 use Spline\Game\Game;
 use Spline\Event\Event;
+use Spline\System\Chat;
 
 # Base
 use pocketmine\plugin\PluginBase;
@@ -30,7 +31,12 @@ class Main extends PluginBase implements Listener{
 	*PlayerDataを取得する
 	*/
 	public function getData($name){
-		return $this->data[$name];
+		if(isset($this->data[$name])){
+			return $this->data[$name];
+		}else{
+			Server::getInstance()->getLogger()->info("§b{$name}のデータは存在しません");
+			return false;
+		}
 	}
 
 	/**

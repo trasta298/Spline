@@ -18,22 +18,30 @@ class Laputa {
 	private $data;
 	private $size;
 	private $map;
+	private $pos;
+	private $level;
 
-	public function __construct($id, $data, $size){
+	public function __construct($id, $data, $size, $pos, $level){
 		$this->id = $id;
 		$this->data = $data;
 		$this->size = $size;
+		$this->pos = $pos;
+		$this->level = $level;
+	}
+
+	public function getPos(){
+		return $this->pos;
 	}
 
 
-	public function placeObject($level, $pos){
+	public function placeObject(){
 		$this->map = [];
-		$this->createMap($pos[0], $pos[2], $this->size);
+		$this->createMap($this->pos[0], $this->pos[2], $this->size);
 		foreach ($this->map as $key => $value) {
-			for ($y=$pos[1]-$value[2]; $y<$pos[1]; $y++){
+			for ($y=$this->pos[1]-$value[2]; $y<$this->pos[1]; $y++){
 				if($y < 0) continue;
-				$level->setBlockIdAt($value[0], $y+1, $value[1], $this->id);
-				$level->setBlockDataAt($value[0], $y+1, $value[1], $this->data);
+				$this->level->setBlockIdAt($value[0], $y+1, $value[1], $this->id);
+				$this->level->setBlockDataAt($value[0], $y+1, $value[1], $this->data);
 			}
 		}
 	}

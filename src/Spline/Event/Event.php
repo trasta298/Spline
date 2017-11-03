@@ -87,9 +87,16 @@ class Event implements Listener{
 	}
 
 	public function PlayerJoinEvent(PlayerJoinEvent $event){
+		$joinMessage = $event->getJoinMessage();
+		$serverInstance = Server::getInstance();
+		$serverInstance->broadcastPopup($serverInstance->getLanguage()->translateString($joinMessage->getText(), $joinMessage->getParameters()));
+		$event->setJoinMessage("");
+
 		$player = $event->getPlayer();
 		$name = $player->getName();
-		$this->main->dataLoad($name);
+		$pdata = $this->main->dataLoad($name);
+		$this->main->game->onJoin($player);
+
 	}
 
 	public function PlayerQuitEvent(PlayerQuitEvent $event){
@@ -142,7 +149,6 @@ class Event implements Listener{
 				break;
 
 			case 283: //金剣
-				Field::generate([$block->x, $block->y+35, $block->z]);
 				break;
 		}
 	}
